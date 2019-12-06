@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -29,6 +30,28 @@ namespace RenderToBmp
                 bmp.UnlockBits(mem);
                 bmp.Save(@"Test.png", ImageFormat.Png);
             }
+
+            var referenceIm = new Bitmap("Reference.png");
+            var testIm = new Bitmap("Test.png");
+
+            float percent = compareImage(referenceIm, testIm);
+            Console.WriteLine("Result: " + percent);
+        }
+
+        private static float compareImage(Bitmap referenceIm, Bitmap testIm)
+        {
+            var count = 0;
+
+            for (int x = 0; x < System.Math.Min(referenceIm.Width, testIm.Width); x++)
+            {
+                for (int y = 0; y < System.Math.Min(referenceIm.Height, testIm.Height); y++)
+                {
+                    if (!testIm.GetPixel(x, y).Equals(referenceIm.GetPixel(x, y)))
+                        count++;
+                }
+            }
+
+            return 1 - ((float)count / (referenceIm.Height * referenceIm.Width));
         }
     }
 }

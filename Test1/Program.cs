@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 
 namespace BasicTriangle
@@ -138,11 +139,41 @@ namespace BasicTriangle
             Context.SwapBuffers();
         }
 
-        [STAThread]
+        public Program(int width, int height, GraphicsMode graphicsMode, string title, GameWindowFlags gameWindowFlags, DisplayDevice displayDevice, int major, int minor, GraphicsContextFlags graphicsContextFlags)
+            : base(width, height, graphicsMode, title, gameWindowFlags, displayDevice, major, minor, graphicsContextFlags)
+        {
+            
+        }
+
         static void Main()
         {
-            var program = new Program();
+            var mode = new GraphicsMode(32, 24, 0, 0, ColorFormat.Empty, 1);
+            var program = new Program(640, 480, mode, "", OpenTK.GameWindowFlags.Default, OpenTK.DisplayDevice.Default, 3, 0, GraphicsContextFlags.Default);
+            program.Visible = false;
+            program.MakeCurrent();
             program.Run();
+
+            var referenceIm = new Bitmap("Reference.png");
+            var testIm = new Bitmap("Test.png");
+
+            float percent = compareImage(referenceIm, testIm);
+            Console.WriteLine("Result: " + percent);
+        }
+
+        private static float compareImage(Bitmap referenceIm, Bitmap testIm)
+        {
+            var count = 0;
+
+            for (int x = 0; x < System.Math.Min(referenceIm.Width, testIm.Width); x++)
+            {
+                for (int y = 0; y < System.Math.Min(referenceIm.Height, testIm.Height); y++)
+                {
+                    if (!testIm.GetPixel(x, y).Equals(referenceIm.GetPixel(x, y)))
+                        count++;
+                }
+            }
+
+            return 1 - ((float)count / (referenceIm.Height * referenceIm.Width));
         }
     }
 }
