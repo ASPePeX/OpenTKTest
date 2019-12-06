@@ -157,13 +157,16 @@ namespace BasicTriangle
             bool refex = false;
             bool tesex = false;
 
-            if (File.Exists("Reference.png"))
+            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Reference.png");
+            string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test.png");
+
+            if (File.Exists(refimg))
             {
                 Console.WriteLine("Reference exists");
                 refex = true;
             }
 
-            if (File.Exists("Test.png"))
+            if (File.Exists(tesimg))
             {
                 Console.WriteLine("Test exists");
                 tesex = true;
@@ -171,8 +174,8 @@ namespace BasicTriangle
 
             if (refex & tesex)
             {
-                var referenceIm = new Bitmap("Reference.png");
-                var testIm = new Bitmap("Test.png");
+                var referenceIm = new Bitmap(refimg);
+                var testIm = new Bitmap(tesimg);
 
                 float percent = compareImage(referenceIm, testIm);
                 Console.WriteLine("Result: " + percent);
