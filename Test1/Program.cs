@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
@@ -153,11 +154,29 @@ namespace BasicTriangle
             program.MakeCurrent();
             program.Run();
 
-            var referenceIm = new Bitmap("Reference.png");
-            var testIm = new Bitmap("Test.png");
+            bool refex = false;
+            bool tesex = false;
 
-            float percent = compareImage(referenceIm, testIm);
-            Console.WriteLine("Result: " + percent);
+            if (File.Exists("Reference.png"))
+            {
+                Console.WriteLine("Reference exists");
+                refex = true;
+            }
+
+            if (File.Exists("Test.png"))
+            {
+                Console.WriteLine("Test exists");
+                tesex = true;
+            }
+
+            if (refex & tesex)
+            {
+                var referenceIm = new Bitmap("Reference.png");
+                var testIm = new Bitmap("Test.png");
+
+                float percent = compareImage(referenceIm, testIm);
+                Console.WriteLine("Result: " + percent);
+            }
         }
 
         private static float compareImage(Bitmap referenceIm, Bitmap testIm)

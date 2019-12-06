@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL;
 
 using SDPixelFormat = System.Drawing.Imaging.PixelFormat;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
+using System.IO;
 
 namespace RenderToBmp
 {
@@ -31,11 +32,29 @@ namespace RenderToBmp
                 bmp.Save(@"Test.png", ImageFormat.Png);
             }
 
-            var referenceIm = new Bitmap("Reference.png");
-            var testIm = new Bitmap("Test.png");
+            bool refex = false;
+            bool tesex = false;
 
-            float percent = compareImage(referenceIm, testIm);
-            Console.WriteLine("Result: " + percent);
+            if (File.Exists("Reference.png"))
+            {
+                Console.WriteLine("Reference exists");
+                refex = true;
+            }
+
+            if (File.Exists("Test.png"))
+            {
+                Console.WriteLine("Test exists");
+                tesex = true;
+            }
+
+            if (refex & tesex)
+            {
+                var referenceIm = new Bitmap("Reference.png");
+                var testIm = new Bitmap("Test.png");
+
+                float percent = compareImage(referenceIm, testIm);
+                Console.WriteLine("Result: " + percent);
+            }
         }
 
         private static float compareImage(Bitmap referenceIm, Bitmap testIm)
