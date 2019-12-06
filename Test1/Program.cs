@@ -157,7 +157,7 @@ namespace BasicTriangle
             bool refex = false;
             bool tesex = false;
 
-            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Test1", "Reference.png");
+            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Reference.png");
             string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test.png");
 
             Console.WriteLine(refimg);
