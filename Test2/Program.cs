@@ -35,7 +35,7 @@ namespace RenderToBmp
             bool refex = false;
             bool tesex = false;
 
-            if (File.Exists("Reference.png"))
+            if (File.Exists(@"..\..\..\Reference.png"))
             {
                 Console.WriteLine("Reference exists");
                 refex = true;
@@ -49,7 +49,7 @@ namespace RenderToBmp
 
             if (refex & tesex)
             {
-                var referenceIm = new Bitmap("Reference.png");
+                var referenceIm = new Bitmap(@"..\..\..\Reference.png");
                 var testIm = new Bitmap("Test.png");
 
                 float percent = compareImage(referenceIm, testIm);
