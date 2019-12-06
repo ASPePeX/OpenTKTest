@@ -160,6 +160,9 @@ namespace BasicTriangle
             string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Reference.png");
             string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test.png");
 
+            Console.WriteLine(refimg);
+            Console.WriteLine(tesimg);
+
             if (File.Exists(refimg))
             {
                 Console.WriteLine("Reference exists");
