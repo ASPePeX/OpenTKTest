@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reference.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="opengl32.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
