@@ -4,4 +4,4 @@ build_script:
   - cmd: dotnet run --project Test2\OpenTKTest.csproj
 test: off
 artifacts:
-- path: Test2\Test.png
+- path: Test.png
