@@ -19,7 +19,7 @@ jobs:
     - name: Build with dotnet
       run: dotnet run --project Test2\OpenTKTest.csproj
     - name: Uninstall OpenGL
-      run: ./install-opengl.ps1
+      run: ./install-opengl.ps1 uninstall
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
