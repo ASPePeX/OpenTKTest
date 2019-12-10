@@ -1,0 +1,8 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+build:
+  project: Test2\OpenTKTest.csproj
+  verbosity: normal
+test: off
+artifacts:
+- path: Test2\Test.png
