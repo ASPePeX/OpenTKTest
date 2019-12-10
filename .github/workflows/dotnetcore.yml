@@ -1,0 +1,29 @@
+name: .NET Core
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Install OpenGL
+      run: install-opengl.ps1
+      shell: pwsh
+    - name: Build with dotnet
+      run: dotnet run --project Test2\OpenTKTest.csproj
+    - name: Uninstall OpenGL
+      run: install-opengl.ps1
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: Test
+        # Directory containing files to upload
+        path: Test.png
