@@ -9,28 +9,41 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-steps:
-- task: PowerShell@2
-  displayName: 'PowerShell Script'
-  inputs:
-    targetType: filePath
-    filePath: './install-opengl.ps1'
+jobs:
+- job: Build
+  strategy:
+    matrix:
+      dotnet31:
+        dotnet: '3.1.100'
+      dotnet30:
+        dotnet: '3.0.101'
+  steps:
+    - task: PowerShell@2
+      displayName: 'PowerShell Script'
+      inputs:
+        targetType: filePath
+        filePath: './install-opengl.ps1'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet run 2'
-  inputs:
-    command: run
-    projects: 'Test2\OpenTKTest.csproj'
-    workingDirectory: Test2
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnet)
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: Test2/Test.png
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet run 2'
+      inputs:
+        command: run
+        projects: 'Test2\OpenTKTest.csproj'
+        workingDirectory: Test2
 
-- task: PowerShell@2
-  displayName: 'PowerShell Script'
-  inputs:
-    targetType: filePath
-    filePath: './install-opengl.ps1'
-    arguments: uninstall
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: Test2/Test.png
+
+    - task: PowerShell@2
+      displayName: 'PowerShell Script'
+      inputs:
+        targetType: filePath
+        filePath: './install-opengl.ps1'
+        arguments: uninstall
