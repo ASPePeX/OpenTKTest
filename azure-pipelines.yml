@@ -6,17 +6,26 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'
-
 jobs:
 - job: Build
   strategy:
     matrix:
-      dotnet31:
+      windotnet31:
+        os: 'windows-latest'
         dotnet: '3.1.100'
-      dotnet30:
+      linuxdotnet31:
+        os: 'ubuntu-latest'
+        dotnet: '3.1.100'
+      windotnet30:
+        os: 'windows-latest'
         dotnet: '3.0.101'
+      linuxdotnet30:
+        os: 'ubuntu-latest'
+        dotnet: '3.0.101'
+
+  pool:
+    vmImage: $(os)
+
   steps:
     - task: PowerShell@2
       displayName: 'PowerShell Script'
