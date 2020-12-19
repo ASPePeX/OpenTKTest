@@ -34,4 +34,4 @@ jobs:
         # Artifact name
         name: Test
         # Directory containing files to upload
-        path: Test*.png
+        path: .\*.png
