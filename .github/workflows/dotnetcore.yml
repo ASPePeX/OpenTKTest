@@ -20,9 +20,14 @@ jobs:
       run: ./install-opengl.ps1
       shell: pwsh
     - name: Build with dotnet
-      run: dotnet run --project Test1\OpenTKTest.csproj
+      run: dotnet run --project Test1\OpenTKTest1.csproj
+    - name: Build with dotnet
+      run: dotnet run --project Test2\OpenTKTest2.csproj
+    - name: Build with dotnet
+      run: dotnet run --project Test3\OpenTKTest3.csproj
     - name: Uninstall OpenGL
       run: ./install-opengl.ps1 uninstall
+      if: always()
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
