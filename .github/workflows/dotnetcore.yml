@@ -7,7 +7,10 @@ on:
 
 jobs:
   build:
-
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+    
     runs-on: windows-latest
 
     steps:
@@ -23,13 +26,14 @@ jobs:
       run: dotnet run --project Test1\OpenTKTest1.csproj
     - name: Build with dotnet
       run: dotnet run --project Test2\OpenTKTest2.csproj
-    - name: Build with dotnet
-      run: dotnet run --project Test3\OpenTKTest3.csproj
     - name: Uninstall OpenGL
       run: ./install-opengl.ps1 uninstall
       if: always()
+    - name: Build with dotnet
+      run: dotnet run --project Test3\OpenTKTest3.csproj
     - name: Upload artifact
       uses: actions/upload-artifact@v2
+      if: always()
       with:
         # Artifact name
         name: Test
