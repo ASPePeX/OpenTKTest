@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Drawing;
 using System.IO;
 using OpenTK;
@@ -7,7 +8,7 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace BasicTriangle
 {
-    sealed class Program : GameWindow
+    sealed class Test1 : GameWindow
     {
         // A simple vertex shader possible. Just passes through the position vector.
         const string VertexShaderSource = @"
@@ -132,7 +133,7 @@ namespace BasicTriangle
             GL.ReadPixels(0, 0, Width, Height, PixelFormat.Bgra, PixelType.UnsignedByte, mem.Scan0);
             bmp.UnlockBits(mem);
             bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            bmp.Save("Test.png", System.Drawing.Imaging.ImageFormat.Png);
+            bmp.Save("Test1.png", System.Drawing.Imaging.ImageFormat.Png);
 
             Exit();
 
@@ -140,7 +141,7 @@ namespace BasicTriangle
             Context.SwapBuffers();
         }
 
-        public Program(int width, int height, GraphicsMode graphicsMode, string title, GameWindowFlags gameWindowFlags, DisplayDevice displayDevice, int major, int minor, GraphicsContextFlags graphicsContextFlags)
+        public Test1(int width, int height, GraphicsMode graphicsMode, string title, GameWindowFlags gameWindowFlags, DisplayDevice displayDevice, int major, int minor, GraphicsContextFlags graphicsContextFlags)
             : base(width, height, graphicsMode, title, gameWindowFlags, displayDevice, major, minor, graphicsContextFlags)
         {
             
@@ -149,56 +150,15 @@ namespace BasicTriangle
         static void Main()
         {
             var mode = new GraphicsMode(32, 24, 0, 0, ColorFormat.Empty, 1);
-            var program = new Program(640, 480, mode, "", OpenTK.GameWindowFlags.Default, OpenTK.DisplayDevice.Default, 3, 0, GraphicsContextFlags.Default);
+            var program = new Test1(640, 480, mode, "", OpenTK.GameWindowFlags.Default, OpenTK.DisplayDevice.Default, 3, 0, GraphicsContextFlags.Default);
             program.Visible = false;
             program.MakeCurrent();
             program.Run();
 
-            bool refex = false;
-            bool tesex = false;
-
             string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Reference.png");
-            string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test.png");
+            string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test1.png");
 
-            Console.WriteLine(refimg);
-            Console.WriteLine(tesimg);
-
-            if (File.Exists(refimg))
-            {
-                Console.WriteLine("Reference exists");
-                refex = true;
-            }
-
-            if (File.Exists(tesimg))
-            {
-                Console.WriteLine("Test exists");
-                tesex = true;
-            }
-
-            if (refex & tesex)
-            {
-                var referenceIm = new Bitmap(refimg);
-                var testIm = new Bitmap(tesimg);
-
-                float percent = compareImage(referenceIm, testIm);
-                Console.WriteLine("Result: " + percent);
-            }
-        }
-
-        private static float compareImage(Bitmap referenceIm, Bitmap testIm)
-        {
-            var count = 0;
-
-            for (int x = 0; x < System.Math.Min(referenceIm.Width, testIm.Width); x++)
-            {
-                for (int y = 0; y < System.Math.Min(referenceIm.Height, testIm.Height); y++)
-                {
-                    if (!testIm.GetPixel(x, y).Equals(referenceIm.GetPixel(x, y)))
-                        count++;
-                }
-            }
-
-            return 1 - ((float)count / (referenceIm.Height * referenceIm.Width));
+            Helper.CompareTestImages(refimg, tesimg);
         }
     }
 }

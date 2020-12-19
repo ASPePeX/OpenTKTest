@@ -1,0 +1,9 @@
+F:\Git\OpenTKTest\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+F:\Git\OpenTKTest\Common\bin\Debug\netcoreapp3.1\Common.dll
+F:\Git\OpenTKTest\Common\bin\Debug\netcoreapp3.1\Common.pdb
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.dll
+F:\Git\OpenTKTest\Common\obj\Debug\netcoreapp3.1\Common.pdb

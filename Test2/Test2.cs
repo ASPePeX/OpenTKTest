@@ -7,10 +7,11 @@ using OpenTK.Graphics.OpenGL;
 using SDPixelFormat = System.Drawing.Imaging.PixelFormat;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 using System.IO;
+using Common;
 
 namespace RenderToBmp
 {
-    static class Program
+    static class Test2
     {
         static void Main()
         {
@@ -29,8 +30,13 @@ namespace RenderToBmp
                 GL.PixelStore(PixelStoreParameter.PackRowLength, mem.Stride / 4);
                 GL.ReadPixels(0, 0, 640, 480, PixelFormat.Bgra, PixelType.UnsignedByte, mem.Scan0);
                 bmp.UnlockBits(mem);
-                bmp.Save(@"Test.png", ImageFormat.Png);
+                bmp.Save(@"Test2.png", ImageFormat.Png);
             }
+
+            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Test2", "Reference.png");
+            string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test2.png");
+
+            Helper.CompareTestImages(refimg, tesimg);
         }
     }
 }
