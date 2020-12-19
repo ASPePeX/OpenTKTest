@@ -155,7 +155,7 @@ namespace BasicTriangle
             program.MakeCurrent();
             program.Run();
 
-            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Reference.png");
+            string refimg = Path.Combine(Directory.GetCurrentDirectory(), "Test1", "Reference.png");
             string tesimg = Path.Combine(Directory.GetCurrentDirectory(), "Test1.png");
 
             Helper.CompareTestImages(refimg, tesimg);
