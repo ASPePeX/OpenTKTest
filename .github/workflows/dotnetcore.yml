@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -29,9 +29,12 @@ jobs:
       run: ./install-opengl.ps1 uninstall
       if: always()
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         # Artifact name
         name: Test
         # Directory containing files to upload
-        path: Test1.png;Test2.png;Test3.png
+        path: |
+          Test1.png
+          Test2.png
+          Test3.png
